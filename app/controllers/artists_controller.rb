@@ -4,7 +4,11 @@ class ArtistsController < ApplicationController
   end
 
   def show
-    @artist = Artist.find(params[:id])
+    if Preference.all.first.allow_create_artists == true
+      @artist = Artist.find(params[:id])
+    else
+      redirect_to artists_path
+    end
   end
 
   def new
@@ -47,6 +51,6 @@ class ArtistsController < ApplicationController
   private
 
   def artist_params
-    params.require(:artist).permit(:name)
+    params.require(:artist).permit(:name, :preference_id)
   end
 end
