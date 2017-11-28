@@ -4,7 +4,7 @@ class ArtistsController < ApplicationController
   end
 
   def show
-    if Preference.all.first.allow_create_artists == true
+    if Preference.all[0].allow_create_artists == true
       @artist = Artist.find(params[:id])
     else
       redirect_to artists_path
