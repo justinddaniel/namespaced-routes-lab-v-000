@@ -10,15 +10,15 @@ class ArtistsController < ApplicationController
   end
 
   def show
-    if @preferences && !@preferences.allow_create_artists
-      redirect_to artists_path
-    else
-      @artist = Artist.find(params[:id])
-    end
+    @artist = Artist.find(params[:id])
   end
 
   def new
-    @artist = Artist.new
+    if @preferences && !@preferences.allow_create_artists
+      redirect_to artists_path
+    else
+      @artist = Artist.new
+    end
   end
 
   def create
